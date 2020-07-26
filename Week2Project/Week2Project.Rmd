@@ -1,0 +1,10 @@
+---
+title: "Week 2 Project"
+author: "P. Lombardo"
+date: "7/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
