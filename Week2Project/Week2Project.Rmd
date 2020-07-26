@@ -6,5 +6,49 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(leaflet)
+library(lubridate)
+map_df<-read.csv("map_df.csv", header = T)
+map_df
 ```
+
+The map below shows police shootings in the North East of the United States from January 2015 to June 2020 couresty of [The Washington Post](https://github.com/washingtonpost/data-police-shootings).
+```{r, message = FALSE}
+map_df %>%
+  leaflet() %>%
+  addTiles() %>%
+   addMarkers(popup = map_df$popup,
+              clusterOptions = markerClusterOptions()) 
+```
+
+
+
+
+
+```{r, echo = FALSE, eval =FALSE}
+# library(tmaptools)
+# 
+# tmaptools::geocode_OSM("Charlotte, NC")$coords["x"]
+
+# 
+# location_df<-data.frame(location = unique_add,
+#                         lat = 0,
+#                         lon = 0)
+
+#This loop took a LONG TIME
+# for (i in 1:length(unique_add)){
+#     temp<-tmaptools::geocode_OSM(unique_add[i])$coords
+#     if (!is.null(temp)){
+#         location_df$lat[i]<-temp["y"]
+#         location_df$lon[i]<-temp["x"]
+#     } else {
+#         location_df$lat[i]<-NA
+#         location_df$lon[i]<-NA
+#     }
+# 
+# }
+```
+
+
