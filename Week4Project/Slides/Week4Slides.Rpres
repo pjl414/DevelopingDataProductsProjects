@@ -8,6 +8,7 @@ transition: rotate
 First Slide
 ========================================================
 transition: linear
+incremental: true
 
 What to put here?
 
