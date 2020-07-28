@@ -3,9 +3,11 @@ Week 4 Reproducible Pitch for Shiny App
 author: Phil Lombardo
 date: 7/28/2020
 autosize: true
+transition: rotate
 
 First Slide
 ========================================================
+transition: linear
 
 What to put here?
 
