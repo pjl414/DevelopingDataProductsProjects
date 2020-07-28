@@ -26,13 +26,37 @@ Difficult Ideas to Grasp
 ========================================================
 incremental: true
 
-- The confidence interval depends on the random sample from which it is built
-- The *confidence level* represents a success rate for the confidence interval process
-    - i.e. create thousands of confidence intervals from thousands of random sample, $$\text{Confidence Level} \approx \text{Percentage of Conf. Intervals containin $\mu$}$$
+**Key Idea:**
+- The confidence interval depends on the random sample
+    - Different samples lead to different confidence intervals
+```{r, echo = FALSE}
+library(ggplot2)
+data(diamonds)
+```
 
-Slide With Plot
+    - Taking five different random samples from the `diamonds` data set, we get these different confidence intervals:
+```{r}
+t(sapply(1:5, function(x){
+    t.test(sample(diamonds$price,50))$conf.int
+}))
+```
+
+
+Difficult Ideas to Grasp
+========================================================
+incremental: true
+
+**Key Idea:**
+
+- The confidence level of a confidence interval is a success rate *for the process*
+    - Take 10,000 confidence intervals made from 10,000 random samples
+        - Confidence level is approximately the precentage of those confidence intervals that contain $\mu$
+        
+- ***How can we visualize these ideas?***
+
+
+Confidence Interval Visualizing Shiny App
 ========================================================
 
-```{r, echo=FALSE}
-plot(mtcars$mpg, mtcars$hp,pch = 19, col='blue')
-```
+![](app1.png)
+[https://lombardo.shinyapps.io/Week4Project/](https://lombardo.shinyapps.io/Week4Project/)
