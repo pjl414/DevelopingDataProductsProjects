@@ -3,7 +3,6 @@ Week 4 Reproducible Pitch for Shiny App
 author: Phil Lombardo
 date: 7/28/2020
 autosize: true
-transition: rotate
 
 
 Confidence Intervals
@@ -33,12 +32,9 @@ Difficult Ideas to Grasp
 ========================================================
 incremental: true
 
-**Key Idea:**
-- The confidence interval depends on the random sample
-    - Different samples lead to different confidence intervals
+The confidence interval depends on the random sample
 
-
-    - Taking five different random samples from the `diamonds` data set, we get these different confidence intervals:
+- Taking five different random samples from the `diamonds` data set, we get five *different* confidence intervals:
 
 ```r
 t(sapply(1:5, function(x){
@@ -48,11 +44,11 @@ t(sapply(1:5, function(x){
 
 ```
          [,1]     [,2]
-[1,] 2909.495 5197.385
-[2,] 3280.126 5436.674
-[3,] 2774.584 5392.936
-[4,] 2980.320 5478.720
-[5,] 2820.753 4532.687
+[1,] 2696.487 4818.953
+[2,] 2562.410 5103.790
+[3,] 3008.459 5466.981
+[4,] 2651.946 4821.934
+[5,] 2344.164 4373.436
 ```
 
 
@@ -60,13 +56,14 @@ Difficult Ideas to Grasp
 ========================================================
 incremental: true
 
-**Key Idea:**
+The confidence level of a confidence interval is a success rate *for the process*
 
-- The confidence level of a confidence interval is a success rate *for the process*
-    - Take 10,000 confidence intervals made from 10,000 random samples
-        - Confidence level is approximately the precentage of those confidence intervals that contain $\mu$
+Take 10,000 confidence intervals made from 10,000 random samples
+- Confidence level is approximately the percentage of those confidence intervals that contain $\mu$
         
-- ***How can we visualize these ideas?***
+        
+        
+***How can we visualize these ideas?***
 
 
 Confidence Interval Visualizing Shiny App
