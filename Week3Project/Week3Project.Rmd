@@ -1,0 +1,69 @@
+---
+title: "Week 3 Presentation With Plotly"
+author: "P. Lombardo"
+date: "7/27/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE,warning = FALSE}
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(lubridate))
+suppressPackageStartupMessages(library(tidyr))
+# df<-read.csv("WPo_Police_Shooting_DB.csv", header = T)
+df1<-read.csv("TSCOVID.csv", header = T)
+```
+
+## Exploring COVID confirmed cases
+```{r, echo = FALSE, message = FALSE, warning = FALSE, results = 'hide'}
+
+date_cols<-df1 %>% names() %>% grep("^X.*",.)
+new_date_cols<-sub("X","",names(df1)[date_cols]) %>% gsub("\\.","-",.)
+names(df1)[date_cols]<-new_date_cols
+df1 %>% names()
+
+df2<-df1 %>% gather(date, count, date_cols) %>%
+    select(Province_State, date, count) %>% 
+    group_by(Province_State, date) %>%
+    summarise(total_count = sum(count))
+
+df2$date<-mdy(df2$date)
+
+northeast<-c("Maine","Massachusetts", "New Hampshire", "New York",
+             "Vermont", "Connecticut", "Rhode Island")
+all<-c(northeast,"Florida")[order(c(northeast,"Florida"))]
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, results = 'hide', eval = FALSE}
+# unique(df2$Province_State)
+p2<-df2 %>% filter(Province_State %in% c(northeast,"Florida")) %>%
+    ggplot(data = ., aes(x = date, y = total_count+1, colour = Province_State))+
+    geom_line()+
+    # scale_y_log()+
+    scale_colour_manual(labels = all,values = c("gray","red", rep("gray",6)))+
+    scale_x_date(breaks = "1 week",
+                 date_labels = "%b %d")+
+    labs(y= "Log10 Scaled Confirmed Cases", 
+         x="Date", 
+         title="Comparing Confirmed COVID-19 Cases in Florida to the Northeast States")
+    theme(axis.text.x = element_text(angle = 45, hjust=1))+
+    theme_bw()
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(plotly)
+dfplotly<-df2 %>% filter(Province_State %in% c(northeast,"Florida"))
+dfplotly<-dfplotly %>% arrange(Province_State, date) 
+plot_ly(dfplotly, x = ~date, y = ~total_count, color= ~Province_State,
+        type = "scatter",
+        mode = "lines",
+        colors = c("gray","red",rep("gray",6)))
+```
+
+
+## Thanks!
