@@ -5,29 +5,34 @@ date: 7/28/2020
 autosize: true
 transition: rotate
 
-First Slide
+
+Confidence Intervals
 ========================================================
-transition: linear
 incremental: true
 
-What to put here?
+- Important topic from Johns Hopkins [*Statistical Inference Course*](https://www.coursera.org/learn/statistical-inference/home/welcome)
 
-For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+- An interval predicting where population mean $\mu$ falls based on a random sample
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- Uses the *t*-distribution
 
-Slide With Code
-========================================================
-
+Example:
 ```{r}
-summary(cars)
+t.test(mtcars$mpg)$conf.int
 ```
+
+
+Difficult Ideas to Grasp
+========================================================
+incremental: true
+
+- The confidence interval depends on the random sample from which it is built
+- The *confidence level* represents a success rate for the confidence interval process
+    - i.e. create thousands of confidence intervals from thousands of random sample, $$\text{Confidence Level} \approx \text{Percentage of Conf. Intervals containin $\mu$}$$
 
 Slide With Plot
 ========================================================
 
 ```{r, echo=FALSE}
-plot(cars)
+plot(mtcars$mpg, mtcars$hp,pch = 19, col='blue')
 ```
